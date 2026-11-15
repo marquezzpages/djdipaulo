@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+# Antes da publicação, substitua o domínio abaixo pelo domínio definitivo.
+Sitemap: https://DOMINIO-A-DEFINIR.com.br/sitemap.xml
