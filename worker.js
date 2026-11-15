@@ -65,9 +65,10 @@ export default {
   async fetch(request, env){
     const url=new URL(request.url);const {pathname}=url;
     // www -> sem www (igual ao Netlify), evita conteudo duplicado no Google
-    if(url.hostname==='www.dipaulodj.com.br'){url.hostname='dipaulodj.com.br';return Response.redirect(url.toString(),301);}
-    // mesmo endereco usado pelo script.js, entao o site nao precisa mudar
+    // a agenda responde em qualquer endereco (inclusive www), pra nunca quebrar
+    // em paginas antigas abertas/guardadas no navegador com www
     if(pathname==='/.netlify/functions/agenda'||pathname==='/api/agenda')return agenda(request, env);
+    if(url.hostname==='www.dipaulodj.com.br'){url.hostname='dipaulodj.com.br';return Response.redirect(url.toString(),301);}
     return env.ASSETS.fetch(request);
   }
 };
