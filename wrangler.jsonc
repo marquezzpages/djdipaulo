@@ -1,0 +1,12 @@
+{
+  // Troque pelo nome EXATO do projeto no painel do Cloudflare
+  "name": "djdipaulo",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./DI_PAULO_SITE_AGENDA_MULTILINGUE_NETLIFY/public",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/.netlify/functions/*", "/api/*"]
+  }
+}

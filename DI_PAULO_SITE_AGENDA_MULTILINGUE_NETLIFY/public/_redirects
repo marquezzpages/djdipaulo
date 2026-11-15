@@ -1,4 +1,4 @@
 # Redirecionamentos permanentes da privacidade antiga para o endereco canonico
-/privacidade       /pt/privacidade/   301!
-/privacidade.html  /pt/privacidade/   301!
+/privacidade       /pt/privacidade/   301
+/privacidade.html  /pt/privacidade/   301
 /agenda   /pt/#agenda 302
