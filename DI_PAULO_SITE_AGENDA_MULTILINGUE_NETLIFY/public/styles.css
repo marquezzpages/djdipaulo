@@ -22,3 +22,10 @@
 @media(max-width:1000px){.desktop-nav a{font-size:10px;letter-spacing:.06em}.header-book{font-size:10px}}
 @media(max-width:790px){.header-shell{gap:10px}.header-end{gap:13px}.lang-switch{margin-left:auto}.agenda-row{grid-template-columns:1.1fr 2.3fr 1.6fr;gap:18px}.agenda-buy{grid-column:2/4;justify-content:flex-start}.agenda-day{font-size:46px}.agenda-place b{font-size:11px}.agenda-place small{font-size:10px}}
 @media(max-width:520px){.brand img{width:110px}.header-end{gap:6px}.lang-switch{padding:2px;gap:0}.lang-switch a{font-size:9px;padding:9px 5px}.menu-toggle{padding:7px}.agenda-row{grid-template-columns:95px 1fr;gap:8px 15px;padding:24px 0}.agenda-date{grid-row:1/3;align-items:flex-start;gap:5px}.agenda-day{font-size:44px}.agenda-month b{font-size:11px}.agenda-month small{font-size:9px}.agenda-event strong{font-size:24px}.agenda-event small{font-size:9px}.agenda-place{grid-column:2}.agenda-buy{grid-column:2}.agenda-bottom{flex-direction:column;align-items:flex-start}.agenda-toolbar{font-size:8px;gap:10px}.agenda-empty{font-size:14px}}
+
+/* Ícones 100% vetoriais: consistência visual no Safari/iOS, Android e desktop. */
+.dp-ui-symbol{display:inline-block;width:1em;height:1em;vertical-align:-.12em;flex:none;}
+.marquee i{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;}
+.marquee i .dp-asterisk{width:.83em;height:.83em;vertical-align:middle;}
+.player-icon .dp-music-symbol{width:1.1em;height:1.1em;}
+@media (max-width:520px){.marquee i{padding-inline:10px;}}

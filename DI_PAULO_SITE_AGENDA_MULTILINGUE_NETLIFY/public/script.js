@@ -59,9 +59,9 @@
   'use strict';
   const locale = document.documentElement.lang.startsWith('es') ? 'es' : document.documentElement.lang.startsWith('en') ? 'en' : 'pt';
   const strings = {
-    pt: {empty:'Em breve, novas datas confirmadas. Acompanhe as novidades no Instagram.',unavailable:'Agenda temporariamente indisponível. Confira as atualizações no Instagram.',ticket:'INGRESSOS ↗',details:'DETALHES ↗',time:'ÀS',months:['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'],format:'pt-BR'},
-    en: {empty:'New confirmed tour dates coming soon. Follow Instagram for updates.',unavailable:'Schedule temporarily unavailable. Please check Instagram for updates.',ticket:'TICKETS ↗',details:'DETAILS ↗',time:'AT',months:['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'],format:'en-US'},
-    es: {empty:'Pronto anunciaremos nuevas fechas. Sigue Instagram para novedades.',unavailable:'Agenda temporalmente no disponible. Consulta Instagram para actualizaciones.',ticket:'ENTRADAS ↗',details:'DETALLES ↗',time:'A LAS',months:['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'],format:'es-ES'}
+    pt: {empty:'Em breve, novas datas confirmadas. Acompanhe as novidades no Instagram.',unavailable:'Agenda temporariamente indisponível. Confira as atualizações no Instagram.',ticket:'INGRESSOS',details:'DETALHES',time:'ÀS',months:['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'],format:'pt-BR'},
+    en: {empty:'New confirmed tour dates coming soon. Follow Instagram for updates.',unavailable:'Schedule temporarily unavailable. Please check Instagram for updates.',ticket:'TICKETS',details:'DETAILS',time:'AT',months:['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'],format:'en-US'},
+    es: {empty:'Pronto anunciaremos nuevas fechas. Sigue Instagram para novedades.',unavailable:'Agenda temporalmente no disponible. Consulta Instagram para actualizaciones.',ticket:'ENTRADAS',details:'DETALLES',time:'A LAS',months:['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'],format:'es-ES'}
   }[locale];
   const container = document.getElementById('agendaList');
   if (!container) return;
@@ -71,6 +71,21 @@
   };
   function empty(message) { container.replaceChildren(textNode('p', message, 'agenda-empty'));container.setAttribute('aria-busy','false'); }
   function safeExternal(raw) { try { const url = new URL(raw); return (url.protocol === 'https:' || url.protocol === 'http:') ? url.toString() : null; } catch { return null; } }
+
+  // Constrói a seta como desenho SVG, não como caractere/emoji.
+  function appendVectorArrow(link) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('width', '1em'); svg.setAttribute('height', '1em');
+    svg.setAttribute('fill', 'none'); svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2.1'); svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round'); svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false'); svg.classList.add('dp-ui-symbol');
+    const path = document.createElementNS(NS, 'path');
+    path.setAttribute('d', 'M5 19 19 5M8 5h11v11'); svg.appendChild(path);
+    link.appendChild(svg);
+  }
   function drawEvent(event) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(event.data || '')) return;
     const [y,m,d] = event.data.split('-').map(Number);
@@ -85,8 +100,8 @@
     place.append(textNode('small',[event.cidade,event.estado,event.pais].filter(Boolean).join(' · ')));row.append(place);
     const action=textNode('div','', 'agenda-buy');
     const target=safeExternal(event.ingressos_url);
-    if(target){const link=document.createElement('a');link.href=target;link.target='_blank';link.rel='noopener noreferrer';link.textContent=strings.ticket;action.append(link);}
-    else if (safeExternal(event.mapa_url)){const link=document.createElement('a');link.href=safeExternal(event.mapa_url);link.target='_blank';link.rel='noopener noreferrer';link.textContent=strings.details;action.append(link);}
+    if(target){const link=document.createElement('a');link.href=target;link.target='_blank';link.rel='noopener noreferrer';link.textContent=strings.ticket+' ';appendVectorArrow(link);action.append(link);}
+    else if (safeExternal(event.mapa_url)){const link=document.createElement('a');link.href=safeExternal(event.mapa_url);link.target='_blank';link.rel='noopener noreferrer';link.textContent=strings.details+' ';appendVectorArrow(link);action.append(link);}
     row.append(action);container.append(row);
   }
   async function load() {
