@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.dipaulodj.com.br/sitemap.xml
+Sitemap: https://dipaulodj.com.br/sitemap.xml
