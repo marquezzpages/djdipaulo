@@ -107,7 +107,7 @@
   async function load() {
     try {
       const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),9500);
-      const res=await fetch('/.netlify/functions/agenda',{signal:controller.signal,headers:{'Accept':'application/json'}});
+      const res=await fetch('/api/agenda',{signal:controller.signal,headers:{'Accept':'application/json'}});
       clearTimeout(timer);
       if(!res.ok) throw new Error('Agenda API unavailable');
       const data=await res.json(); if(!Array.isArray(data.events)) throw new Error('Agenda response invalid');
